@@ -176,23 +176,23 @@ fRingCipher
 
 ■暗号化の実装
 
-　CIPHER = cbcx ( cbcx ( PLAIN + padding + padding_n + randpart + hash + iv , key1 ) , key2 ) + perand
+　CIPHER = rCBC ( rCBC ( PLAIN + padding + padding_N + randPart + hash + iv , key1 ) , key2 ) + PERandPart
 
 　　PLAIN  ... 平文のバイト列
 　　CIPHER ... 暗号化されたバイト列
 
-　　padding        ... ランダムなバイト列 (padding_nLow バイト) ※2
-　　padding_n(Hi)  ... ランダムなビット列 (上位4ビット) ※2
-　　padding_n(Low) ... PLAIN + padding + padding_n のバイト数が16の倍数となるようなゼロではない4ビットの乱数 (下位4ビット) ※2
-　　randpart       ... ランダムなバイト列 (64バイト) ※2
-　　hash           ... PLAIN + padding + padding_n + randpart の SHA-512 (64バイト) ※3
+　　padding        ... ランダムなバイト列 (padding_N-Low バイト) ※2
+　　padding_N(Hi)  ... ランダムなビット列 (上位4ビット) ※2
+　　padding_N(Low) ... PLAIN + padding + padding_N のバイト数が16の倍数となるような 1〜15 の値 (下位4ビット)
+　　randPart       ... ランダムなバイト列 (64バイト) ※2
+　　hash           ... PLAIN + padding + padding_N + randPart の SHA-512 (64バイト) ※3
 　　iv             ... ランダムなバイト列 (16バイト) ※2
 　　key1           ... 鍵の前半256ビット
 　　key2           ... 鍵の後半256ビット
-　　cbcx           ... 鍵長256ビットのAESによる暗号化, 最後のブロックをIVとするCBCモード ※4
+　　rCBC           ... 鍵長256ビットのAESによる暗号化, 最後のブロックをIVとするCBCモード ※4
 
-　　perand ... /PE オプションを指定した場合、/PE オプションで使用する「ランダムなバイト列_64バイト」(64バイト)
-　　           /PE オプションを指定しなかった場合、何も無し (0バイト)
+　　PERandPart ... /PE オプションを指定した場合、/PE オプションで使用する「ランダムなバイト列_64バイト」(64バイト)
+　　               /PE オプションを指定しなかった場合、何も無し (0バイト)
 
 
 ■取り扱い種別

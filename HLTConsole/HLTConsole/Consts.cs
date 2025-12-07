@@ -15,6 +15,21 @@ namespace HLTStudio
 	public static class Consts
 	{
 		/// /////////
+		/// //////////////
+		/// //////////
+		public const int GEN_PASSPHRASE_LEN_MIN = 3;
+
+		/// /////////
+		/// /////////////////
+		/// //////////
+		public const int GEN_PASSPHRASE_LEN_DEF = 22;
+
+		/// /////////
+		/// //////////////
+		/// //////////
+		public const int GEN_PASSPHRASE_LEN_MAX = 1000;
+
+		/// /////////
 		/// ////////////
 		/// //////////
 		public const string AUTO_EXT_ENCRYPTED = ".cphr";

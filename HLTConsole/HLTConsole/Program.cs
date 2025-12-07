@@ -170,6 +170,33 @@ namespace HLTStudio
 				}
 				break;
 			}
+			if (ar.ArgIs("/MP"))
+			{
+				int pLen;
+
+				if (ar.HasArgs())
+				{
+					pLen = int.Parse(ar.NextArg());
+
+					if (pLen < Consts.GEN_PASSPHRASE_LEN_MIN || Consts.GEN_PASSPHRASE_LEN_MAX < pLen)
+						throw new Exception("Bad pLen");
+				}
+				else
+				{
+					pLen = Consts.GEN_PASSPHRASE_LEN_DEF;
+				}
+				ar.End();
+
+				Console.WriteLine(CreatePassphrase(pLen));
+				return;
+			}
+			if (ar.ArgIs("/MK"))
+			{
+				ar.End();
+
+				Console.WriteLine(CreateRawKey());
+				return;
+			}
 
 			InputFilePath = SCommon.ToFullPath(ar.NextArg());
 
@@ -459,6 +486,28 @@ namespace HLTStudio
 			{
 				rc.Decrypt(OutputFilePath);
 			}
+		}
+
+		private string CreatePassphrase(int pLen)
+		{
+			char[] PP_CHARS = (SCommon.DECIMAL + SCommon.ALPHA_UPPER + SCommon.ALPHA_LOWER).ToCharArray();
+
+			for (; ; )
+			{
+				string passphrase = new string(SCommon.Generate(pLen, () => SCommon.CRandom.ChooseOne(PP_CHARS)).ToArray());
+
+				if (
+					passphrase.Any(chr => SCommon.DECIMAL.Contains(chr)) &&
+					passphrase.Any(chr => SCommon.ALPHA_UPPER.Contains(chr)) &&
+					passphrase.Any(chr => SCommon.ALPHA_LOWER.Contains(chr))
+					)
+					return passphrase;
+			}
+		}
+
+		private string CreateRawKey()
+		{
+			return SCommon.Hex.I.GetString(SCommon.CRandom.GetBytes(64));
 		}
 	}
 }
