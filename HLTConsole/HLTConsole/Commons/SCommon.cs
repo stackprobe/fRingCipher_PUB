@@ -18,14 +18,6 @@ using System.Threading;
 
 namespace HLTStudio.Commons
 {
-	// ////////////////////////////////////////////////////////////////////////////////
-	// ///// ///////////////////////// /////
-	// ////////////////////////////////////////////////////////////////////////////////
-	// ////////////////////////////////////////////////
-	// ////////////////////
-	// ///////////////////////////////////////
-	// ////////////////////////////////////////////////////////////////////////////////
-
 	/// /////////
 	/// //////////////////////////
 	/// //////////
@@ -956,6 +948,54 @@ namespace HLTStudio.Commons
 			{
 				return defval;
 			}
+		}
+
+		public static IEnumerable<T> E_RemoveAt<T>(IEnumerable<T> src, int index)
+		{
+			return E_RemoveRange(src, index, 1);
+		}
+
+		public static IEnumerable<T> E_RemoveRange<T>(IEnumerable<T> src, int index, int count)
+		{
+			int i = 0;
+
+			foreach (T e in src)
+			{
+				if (i < index || index + count <= i)
+					yield return e;
+
+				i++;
+			}
+		}
+
+		public static IEnumerable<T> E_Insert<T>(IEnumerable<T> src, int index, T element)
+		{
+			return E_InsertRange(src, index, new T[] { element });
+		}
+
+		public static IEnumerable<T> E_InsertRange<T>(IEnumerable<T> src, int index, IEnumerable<T> elements)
+		{
+			int i = 0;
+
+			foreach (T e in src)
+			{
+				if (i == index)
+					foreach (T element in elements)
+						yield return element;
+
+				yield return e;
+
+				i++;
+			}
+
+			if (i == index)
+				foreach (T elem in elements)
+					yield return elem;
+		}
+
+		public static IEnumerable<T> E_Add<T>(IEnumerable<T> src, T element)
+		{
+			return src.Concat(new T[] { element });
 		}
 
 		private const int DISK_IO_RETRY_MAX = 20;
@@ -3313,6 +3353,20 @@ namespace HLTStudio.Commons
 		public static string P_RAM_Replace(string str, string oldPtn, string newPtn, bool ignoreCase)
 		{
 			return ignoreCase ? str.ReplaceIgnoreCase(oldPtn, newPtn) : str.Replace(oldPtn, newPtn);
+		}
+
+		public static string FirstNotEmpty(params string[] strs)
+		{
+			foreach (string str in strs)
+				if (!string.IsNullOrEmpty(str))
+					return str;
+
+			throw null; // /////
+		}
+
+		public static string FirstTrimmedNonEmpty(params string[] strs)
+		{
+			return FirstNotEmpty(strs.Select(str => (str ?? "").Trim()).ToArray());
 		}
 
 		// ////////// ///

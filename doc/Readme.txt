@@ -78,7 +78,7 @@ fRingCipher
 　　　ABCDEF??????????...??????????xxxxxxxxxx...xxxxxxxxxx
 　　　      |<---- 64 バイト ---->||<--- 2^30 バイト --->|
 
-　　　　? ＝ 0x00 〜 0xFF のランダムバイト ※2
+　　　　? ＝ 0x00 〜 0xFF のランダムなバイト ※2
 
 　　になります。
 　　復号時もパスワードと同様に(暗号化時に指定したものと同じ) X-CHR, X-EXP を指定する必要があります。
@@ -182,6 +182,7 @@ fRingCipher
 　　CIPHER ... 暗号化されたバイト列
 
 　　padding        ... ランダムなバイト列 (padding_N-Low バイト) ※2
+　　padding_N      ... 以下参照 (1バイト)
 　　padding_N(Hi)  ... ランダムなビット列 (上位4ビット) ※2
 　　padding_N(Low) ... PLAIN + padding + padding_N のバイト数が16の倍数となるような 1〜15 の値 (下位4ビット)
 　　randPart       ... ランダムなバイト列 (64バイト) ※2

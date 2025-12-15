@@ -13,14 +13,6 @@ using HLTStudio.Commons;
 
 namespace HLTStudio
 {
-	// ////////////////////////////////////////////////////////////////////////////////
-	// ///// ///////////////////////// /////
-	// ////////////////////////////////////////////////////////////////////////////////
-	// ////////////////////////////////////////////////
-	// ////////////////////
-	// ///////////////////////////////////////
-	// ////////////////////////////////////////////////////////////////////////////////
-
 	public static class Extensions
 	{
 		public static IEnumerable<T> DistinctOrderBy<T>(this IEnumerable<T> src, Comparison<T> comp)
@@ -139,6 +131,31 @@ namespace HLTStudio
 		public static string ReplaceAllIgnoreCase(this string text, params string[] replacements)
 		{
 			return SCommon.ReplaceAllIgnoreCase(text, replacements);
+		}
+
+		public static IEnumerable<T> E_RemoveAt<T>(this IEnumerable<T> src, int index)
+		{
+			return SCommon.E_RemoveAt(src, index);
+		}
+
+		public static IEnumerable<T> E_RemoveRange<T>(this IEnumerable<T> src, int index, int count)
+		{
+			return SCommon.E_RemoveRange(src, index, count);
+		}
+
+		public static IEnumerable<T> E_Insert<T>(this IEnumerable<T> src, int index, T element)
+		{
+			return SCommon.E_Insert(src, index, element);
+		}
+
+		public static IEnumerable<T> E_InsertRange<T>(this IEnumerable<T> src, int index, IEnumerable<T> elements)
+		{
+			return SCommon.E_InsertRange(src, index, elements);
+		}
+
+		public static IEnumerable<T> E_Add<T>(this IEnumerable<T> src, T element)
+		{
+			return SCommon.E_Add(src, element);
 		}
 	}
 }
