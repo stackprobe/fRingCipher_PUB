@@ -184,7 +184,7 @@ fRingCipher
 　　padding        ... ランダムなバイト列 (padding_N-Low バイト) ※2
 　　padding_N      ... 以下参照 (1バイト)
 　　padding_N(Hi)  ... ランダムなビット列 (上位4ビット) ※2
-　　padding_N(Low) ... PLAIN + padding + padding_N のバイト数が16の倍数となるような 1〜15 の値 (下位4ビット)
+　　padding_N(Low) ... PLAIN + padding + padding_N のバイト数が16の倍数となるような 0〜15 の値 (下位4ビット)
 　　randPart       ... ランダムなバイト列 (64バイト) ※2
 　　hash           ... PLAIN + padding + padding_N + randPart の SHA-512 (64バイト) ※3
 　　iv             ... ランダムなバイト列 (16バイト) ※2
